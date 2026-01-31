@@ -6,15 +6,23 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
     for node in old_nodes:
         if node.text_type != TextType.TEXT:
             new_list.append(node)
-        if delimiter not in node.text:
-            raise SyntaxError(f"Delimiter '{delimiter}' not found in old node text '{node.text}'")
+
+        delimiter_count = 0
+        comparison_parameter = 2 if delimiter != "**" else 4
+        tmp_delimiter = delimiter if delimiter != "**" else "*"
+        for char in node.text:
+            if tmp_delimiter == char:
+                delimiter_count += 1
+        if delimiter_count % comparison_parameter != 0:
+            raise SyntaxError(f"Some delimiter '{delimiter}' doesn't have its closing match in '{node.text}'")
+
         split_text = node.text.split(delimiter)
-        if len(split_text) != 3:
-            raise SyntaxError(f"The function still doesn't support multiple separate sentences with the same type")
-        new_nodes = [
-            TextNode(split_text[0], TextType.TEXT),
-            TextNode(split_text[1], text_type),
-            TextNode(split_text[2], TextType.TEXT)
-        ]
+        new_nodes = []
+        for i, text in enumerate(split_text):
+            if i % 2 == 1:
+                new_nodes.append(TextNode(text, text_type))
+            elif text.strip():
+                new_nodes.append(TextNode(text, TextType.TEXT))
+
         new_list.extend(new_nodes)
     return new_list

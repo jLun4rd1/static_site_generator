@@ -39,46 +39,29 @@ class TestSplitNodesDelimiter(unittest.TestCase):
     def test_starting_italic_node(self):
         text_node = TextNode("_I start italic._ Did you like it?", TextType.TEXT)
         new_nodes = split_nodes_delimiter([text_node], "_", TextType.ITALIC)
-        self.assertEqual(len(new_nodes), 3)
+        self.assertEqual(len(new_nodes), 2)
         self.assertIn(TextNode("I start italic.", TextType.ITALIC), new_nodes)
         self.assertIn(TextNode(" Did you like it?", TextType.TEXT), new_nodes)
-        self.assertIn(TextNode("", TextType.TEXT), new_nodes)
 
     def test_ending_italic_node(self):
         text_node = TextNode("What do you thing about _ending italic?_", TextType.TEXT)
         new_nodes = split_nodes_delimiter([text_node], "_", TextType.ITALIC)
-        self.assertEqual(len(new_nodes), 3)
+        self.assertEqual(len(new_nodes), 2)
         self.assertIn(TextNode("ending italic?", TextType.ITALIC), new_nodes)
         self.assertIn(TextNode("What do you thing about ", TextType.TEXT), new_nodes)
-        self.assertIn(TextNode("", TextType.TEXT), new_nodes)
 
     def test_only_italic_node(self):
         text_node = TextNode("_This is me. Completely italic!_", TextType.TEXT)
         new_nodes = split_nodes_delimiter([text_node], "_", TextType.ITALIC)
-        self.assertEqual(len(new_nodes), 3)
+        self.assertEqual(len(new_nodes), 1)
         self.assertIn(TextNode("This is me. Completely italic!", TextType.ITALIC), new_nodes)
-        self.assertIn(TextNode("", TextType.TEXT), new_nodes)
 
-    def test_only_italic_node(self):
-        text_node = TextNode("_This is me. Completely italic!_", TextType.TEXT)
-        new_nodes = split_nodes_delimiter([text_node], "_", TextType.ITALIC)
-        self.assertEqual(len(new_nodes), 3)
-        self.assertIn(TextNode("This is me. Completely italic!", TextType.ITALIC), new_nodes)
-        self.assertIn(TextNode("", TextType.TEXT), new_nodes)
-
-    def test_multiple_italic_delimiters_node(self):
-        text_node = TextNode("_This is me._ _Completely italic!_", TextType.TEXT)
-        with self.assertRaises(SyntaxError) as cm:
-            new_nodes = split_nodes_delimiter([text_node], "_", TextType.ITALIC)
-        the_exception = cm.exception
-        self.assertIn("doesn't support multiple separate sentences", str(the_exception))
-
-    def test_missing_delimiter_node(self):
-        text_node = TextNode("This is me. Completely bold!", TextType.TEXT)
+    def test_missing_closing_delimiter_node(self):
+        text_node = TextNode("This is me. Completely** bold!", TextType.TEXT)
         with self.assertRaises(SyntaxError) as cm:
             new_nodes = split_nodes_delimiter([text_node], "**", TextType.ITALIC)
         the_exception = cm.exception
-        self.assertIn("Delimiter '**' not found", str(the_exception))
+        self.assertIn("Some delimiter '**' doesn't", str(the_exception))
 
 
 if __name__ == "__main__":
