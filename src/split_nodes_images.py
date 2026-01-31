@@ -7,10 +7,12 @@ def split_nodes_images(old_nodes):
     for node in old_nodes:
         if node.text_type != TextType.TEXT:
             new_list.append(node)
+            continue
 
         matches = extract_markdown_images(node.text)
         if len(matches) == 0:
             new_list.append(node)
+            continue
 
         tmp_text = node.text
         for match in matches:
