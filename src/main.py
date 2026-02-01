@@ -1,12 +1,7 @@
-from textnode import TextNode, TextType
-from leafnode import LeafNode
-
+from copy_to_public_folder import copy_to_public_folder
 
 def main():
-    text_node = TextNode(
-        "This is some anchor text",
-        TextType.LINK,
-        "https://www.boot.dev"
-    )
+    copy_to_public_folder()
 
-main()
+if __name__ == "__main__":
+    main()
