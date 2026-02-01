@@ -25,11 +25,11 @@ def block_to_block_type(block):
     ordered_list_lines = []
     unordered_list_lines = []
     for i, line in enumerate(all_lines):
-        if line.startswith(">"):
+        if line.strip().startswith(">"):
             quote_lines.append(line)
-        elif line.startswith("- "):
+        elif line.strip().startswith("- "):
             unordered_list_lines.append(line)
-        elif line.startswith(f"{i + 1}. "):
+        elif line.strip().startswith(f"{i + 1}. "):
             ordered_list_lines.append(line)
 
     if len(quote_lines) == len(all_lines):
