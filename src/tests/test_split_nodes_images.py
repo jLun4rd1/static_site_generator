@@ -1,6 +1,6 @@
 import unittest
-from textnode import TextNode, TextType
-from split_nodes_images import split_nodes_images
+from src.textnode import TextNode, TextType
+from src.split_nodes_images import split_nodes_images
 
 
 class TestSplitNodesImages(unittest.TestCase):

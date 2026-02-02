@@ -1,6 +1,6 @@
 import unittest
-from textnode import TextNode, TextType
-from split_nodes_links import split_nodes_links
+from src.textnode import TextNode, TextType
+from src.split_nodes_links import split_nodes_links
 
 
 class TestSplitNodesLinks(unittest.TestCase):

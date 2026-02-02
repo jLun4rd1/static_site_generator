@@ -1,5 +1,5 @@
 import unittest
-from extract_title import extract_title
+from src.extract_title import extract_title
 
 
 class TestExtractTitle(unittest.TestCase):
