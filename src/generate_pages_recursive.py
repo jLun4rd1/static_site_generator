@@ -1,5 +1,5 @@
 import os
-from generate_page import generate_page
+from src.generate_page import generate_page
 
 
 def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
