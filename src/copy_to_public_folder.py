@@ -2,7 +2,7 @@ import os
 import shutil
 
 
-PUBLIC_PATH = "public/"
+PUBLIC_PATH = "docs/"
 STATIC_PATH = "static/"
 
 def copy_to_public_folder():
